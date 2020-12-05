@@ -5,11 +5,13 @@
  */
 package proyecto_cine;
 
+import BD.CineDBA;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,6 +24,10 @@ public class Cines extends javax.swing.JFrame {
     /**
      * Creates new form Cines
      */
+    
+    CineDBA cdba = new CineDBA();
+    private int Id = -1;
+    
     public Cines() {
         initComponents();
          nuevo.setEnabled(true);
@@ -57,33 +63,32 @@ public class Cines extends javax.swing.JFrame {
         
     public void vaciarTabla(){
         DefaultTableModel Modelo = (DefaultTableModel) jTable1.getModel();
-        String titulos[] = {"ID","NOMBRE_PROVEEDOR","TELEFONO","DIRECCION","CORREO"};
+        String titulos[] = {"Id","Misión","Visión","Logo","Ciudad","Ubicación"};
         Modelo = new DefaultTableModel(null,titulos);
         jTable1.setModel(Modelo);
     }
     
     public void verDatos(){
-        /*try {
-            Connection con1 = null;
+        
+        try {
+            ArrayList<Cine> cines = cdba.obtenerTodos();
             DefaultTableModel miModelo = (DefaultTableModel) jTable1.getModel();
-            Conexion conect1 = new Conexion();
-            con1 = conect1.getConnection();
-            String dts[] = new String[5];
-            String sql = "select * from proveedores";
-            Statement st = con1.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                dts[0] = rs.getString("Id_proveedores");
-                dts[1] = rs.getString("nombre_proveedor");
-                dts[2] = rs.getString("telefono");
-                dts[3] = rs.getString("direccion");
-                dts[4] = rs.getString("correo");
-                miModelo.addRow(dts);
+             String datos[] = new String[6];
+            for (int i = 0; i < cines.size(); i++) {
+                datos[0] = cines.get(i).getId()+"";
+                datos[1] = cines.get(i).getMision();
+                datos[2] = cines.get(i).getVision();
+                datos[3] = cines.get(i).getLogo();
+                datos[4] = cines.get(i).getCiudad();
+                datos[5] = cines.get(i).getUbicacion();
+                
+                miModelo.addRow(datos);
             }
+            
             jTable1.setModel(miModelo);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "NO SE PUEDEN VISUALIZAR LOS DATOS DE LA TABLA", "Error", JOptionPane.ERROR_MESSAGE);
-        }*/
+        }
     }
     
     /**
@@ -375,39 +380,29 @@ public class Cines extends javax.swing.JFrame {
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         if (jTextField3.getText().isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL NOMBRE", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL MISIÓN", "Advertencia", JOptionPane.WARNING_MESSAGE);
             jTextField3.requestFocus();
         }
         else if (jTextField1.getText().isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL TELEFONO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL VISIÓN ", "Advertencia", JOptionPane.WARNING_MESSAGE);
             jTextField1.requestFocus();
         }
         else if (jTextField6.getText().isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA DIRECCION", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA CIUDAD", "Advertencia", JOptionPane.WARNING_MESSAGE);
             jTextField6.requestFocus();
         }
         else if (jTextField5.getText().isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL CORREO", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL UBICACIÓN", "Advertencia", JOptionPane.WARNING_MESSAGE);
             jTextField5.requestFocus();
         }
         else
         {
-            /*try
+            try
             {
-                Connection con = null;
-                Conexion conect = new Conexion();
-                con = conect.getConnection();
-                Statement st = con.createStatement();
-                String sql = "insert into proveedores (nombre_proveedor,telefono,direccion,correo) values (?,?,?,?)";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, jTextField3.getText());
-                pst.setString(2, jTextField1.getText());
-                pst.setString(3, jTextField6.getText());
-                pst.setString(4, jTextField5.getText());
-                int n = pst.executeUpdate();
+                int n = cdba.crear(new Cine(jTextField3.getText(), jTextField1.getText(), "icon.png", jTextField6.getText(), jTextField5.getText()));
                 if (n > 0)
                 {
                     JOptionPane.showMessageDialog(this, "DATOS GUARDADOS CORRECTAMENTE");
@@ -420,28 +415,20 @@ public class Cines extends javax.swing.JFrame {
                     eliminar.setEnabled(false);
                     editar.setEnabled(false);
                     desabilitar();
+                } else {
+                    JOptionPane.showMessageDialog(this, "LOS DATOS NO HAN SIDO GUARDADOS CORRECTAMENTE", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (SQLException | HeadlessException e)
+            } catch (Exception e)
             {
                 JOptionPane.showMessageDialog(this, "LOS DATOS NO HAN SIDO GUARDADOS CORRECTAMENTE", "Error", JOptionPane.ERROR_MESSAGE);
-            }*/
+            }
         }
     }//GEN-LAST:event_guardarActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        /*try
+        try
         {
-            Connection con = null;
-            Conexion conect = new Conexion();
-            con = conect.getConnection();
-            Statement st = con.createStatement();
-            String sql = "update proveedores set nombre_proveedor = ?, telefono = ?, direccion = ?, correo = ? where Id_proveedores = ?";
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, jTextField3.getText());
-            pst.setString(2, jTextField1.getText());
-            pst.setString(3, jTextField6.getText());
-            pst.setString(4, jTextField5.getText());
-            int n = pst.executeUpdate();
+            int n = cdba.actualizar(new Cine(Id,jTextField3.getText(), jTextField1.getText(), null, jTextField6.getText(), jTextField5.getText()));
             if (n > 0)
             {
                 JOptionPane.showMessageDialog(this, "DATOS ACTUALIZADOS CORRECTAMENTE");
@@ -453,11 +440,13 @@ public class Cines extends javax.swing.JFrame {
                 editar.setEnabled(false);
                 eliminar.setEnabled(false);
                 desabilitar();
+            } else {
+                JOptionPane.showMessageDialog(this, "LOS DATOS NO HAN SIDO ACTUALIZADOS CORRECTAMENTE", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException | HeadlessException e)
+        } catch (Exception e)
         {
             JOptionPane.showMessageDialog(this, "LOS DATOS NO HAN SIDO ACTUALIZADOS CORRECTAMENTE", "Error", JOptionPane.ERROR_MESSAGE);
-        }*/
+        }
     }//GEN-LAST:event_editarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
@@ -471,16 +460,10 @@ public class Cines extends javax.swing.JFrame {
             int opc = JOptionPane.showConfirmDialog(this, "¿ESTA SEGURO QUE DESEA ELIMINAR ESTE REGISTRO?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (opc == JOptionPane.YES_OPTION)
             {
-                /*try
+                try
                 {
-                    Connection con = null;
-                    Conexion conect = new Conexion();
-                    con = conect.getConnection();
-                    Statement st = con.createStatement();
-                    String sql = "delete from proveedores where Id_proveedores = ?";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setInt(1, Integer.parseInt(jTextField4.getText()));
-                    int n = pst.executeUpdate();
+                    
+                    int n = cdba.eliminar(Id);
                     if (n > 0)
                     {
                         JOptionPane.showMessageDialog(this, "DATOS ELIMINADOS CORRECTAMENTE");
@@ -492,11 +475,13 @@ public class Cines extends javax.swing.JFrame {
                         editar.setEnabled(false);
                         eliminar.setEnabled(false);
                         desabilitar();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "DATOS NO ELIMINADOS CORRECTAMENTE");
                     }
-                } catch (SQLException ex)
+                } catch (Exception ex)
                 {
                     JOptionPane.showMessageDialog(this, "DATOS NO ELIMINADOS CORRECTAMENTE" + ex.getMessage());
-                }*/
+                }
             }
         }
     }//GEN-LAST:event_eliminarActionPerformed
@@ -505,6 +490,7 @@ public class Cines extends javax.swing.JFrame {
         try
         {
             int fila = jTable1.getSelectedRow();
+            Id = (int)jTable1.getValueAt(fila, 0);
             jTextField3.setText(jTable1.getValueAt(fila, 1).toString());
             jTextField1.setText(jTable1.getValueAt(fila, 2).toString());
             jTextField6.setText(jTable1.getValueAt(fila, 3).toString());
@@ -516,7 +502,7 @@ public class Cines extends javax.swing.JFrame {
             habilitar();
         } catch (Exception ex)
         {
-            System.out.println("ERROR AL SELECCIONAR UN EQUIPO : " + ex.getMessage());
+            System.out.println("ERROR AL SELECCIONAR UN CINE : " + ex.getMessage());
         }
     }//GEN-LAST:event_jTable1MouseClicked
 

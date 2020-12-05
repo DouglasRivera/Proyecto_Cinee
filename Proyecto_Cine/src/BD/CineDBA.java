@@ -25,8 +25,8 @@ public class CineDBA {
             {
                 Connection con = null;
                 Dba dba = new Dba();
+                dba.conectar();
                 con = dba.getConnection();
-                Statement st = con.createStatement();
                 String sql = "insert into Cines (Mision,Vision, Logo, Ciudad,Ubicacion) values (?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, cine.getMision());
@@ -35,6 +35,7 @@ public class CineDBA {
                 pst.setString(4, cine.getCiudad());
                 pst.setString(5, cine.getUbicacion());
                 int filas = pst.executeUpdate();
+                dba.desconectar();
                 return filas;
             } catch (SQLException | HeadlessException e)
             {
@@ -48,7 +49,6 @@ public class CineDBA {
                 Connection con = null;
                 Dba dba = new Dba();
                 con = dba.getConnection();
-                Statement st = con.createStatement();
                 String sql = "update Cines set Mision = ?, Vision = ?, Logo = ?, Ciudad = ?, Ubicacion = ? where Id = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, cine.getMision());
@@ -71,7 +71,6 @@ public class CineDBA {
                 Connection con = null;
                 Dba dba = new Dba();
                 con = dba.getConnection();
-                Statement st = con.createStatement();
                 String sql = "delete from Cines where Id = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setInt(1, id);
@@ -95,7 +94,7 @@ public class CineDBA {
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 while(rs.next()){
-                    cines.add(new Cine(rs.getInt(0), rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+                    cines.add(new Cine(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
                 }
                 dba.desconectar();
                 return cines;
