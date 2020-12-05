@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto_cine;
+package BD;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class Dba {
     Statement st = null;
 
     public Dba() {
-        conectar();
+        // conectar();
     }
 
     public Connection getConnection() {

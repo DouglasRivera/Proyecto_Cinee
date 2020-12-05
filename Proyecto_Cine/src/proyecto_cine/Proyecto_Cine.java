@@ -5,6 +5,8 @@
  */
 package proyecto_cine;
 
+import BD.Dba;
+
 /**
  *
  * @author ARLES MACIAS
