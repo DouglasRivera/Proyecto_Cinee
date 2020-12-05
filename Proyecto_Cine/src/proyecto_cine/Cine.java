@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author ARLES MACIAS
  */
 public class Cine {
+    int Id;
     String Mision;
     String Vision;
     String Logo;
@@ -31,6 +32,27 @@ public class Cine {
         this.Ciudad = Ciudad;
         this.Ubicacion = Ubicacion;
     }
+
+    public Cine(int Id, String Mision, String Vision, String Logo, String Ciudad, String Ubicacion) {
+        this.Id = Id;
+        this.Mision = Mision;
+        this.Vision = Vision;
+        this.Logo = Logo;
+        this.Ciudad = Ciudad;
+        this.Ubicacion = Ubicacion;
+    }
+    
+    
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }
+    
+    
 
     public String getMision() {
         return Mision;
