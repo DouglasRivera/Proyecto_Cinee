@@ -21,12 +21,12 @@ public class Menu_Cine extends javax.swing.JFrame {
      */
     public Menu_Cine() {
         initComponents();
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setTitle("Ejemplo");
+        /*setLocationRelativeTo(null);
+        setResizable(false);*/
+        setTitle("Menu del Cine");
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/Mirio_de_Joven.png")).getImage());
         ((JPanel)getContentPane()).setOpaque(false);
-        ImageIcon uno=new ImageIcon(this.getClass().getResource("/imagenes/Cinema.jpg"));
+        ImageIcon uno=new ImageIcon(this.getClass().getResource("/imagenes/wallpaper.png"));
         JLabel fondo= new JLabel();
         fondo.setIcon(uno);
         getLayeredPane().add(fondo,JLayeredPane.FRAME_CONTENT_LAYER);
@@ -47,17 +47,21 @@ public class Menu_Cine extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jbtPersonalCine = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jbtCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(6);
 
         jLabel1.setFont(new java.awt.Font("Wide Latin", 0, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 204, 0));
         jLabel1.setText("Cinema");
 
-        jLabel2.setFont(new java.awt.Font("Onyx", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Onyx", 0, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 153, 0));
         jLabel2.setText("\"Un buen vino es como una buena película: dura un instante y te deja en la boca un sabor a gloria;");
 
-        jLabel3.setFont(new java.awt.Font("Onyx", 0, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Onyx", 0, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 153, 0));
         jLabel3.setText("es nuevo en cada sorbo y , como ocurre con las películas, nace y renace en cada saboreador.\"");
 
         jbtPersonalCine.setFont(new java.awt.Font("Monotype Corsiva", 0, 48)); // NOI18N
@@ -69,12 +73,12 @@ public class Menu_Cine extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Monotype Corsiva", 0, 48)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Popcorn_Time_logo.png"))); // NOI18N
-        jButton1.setText("Ver Peliculas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtCliente.setFont(new java.awt.Font("Monotype Corsiva", 0, 48)); // NOI18N
+        jbtCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Popcorn_Time_logo.png"))); // NOI18N
+        jbtCliente.setText("Ver Peliculas");
+        jbtCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtClienteActionPerformed(evt);
             }
         });
 
@@ -83,44 +87,47 @@ public class Menu_Cine extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jbtPersonalCine)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(48, 48, 48))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(132, 132, 132))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(413, 413, 413)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbtPersonalCine, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jbtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(443, 443, 443)
+                        .addComponent(jLabel1)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(35, 35, 35)
+                .addGap(107, 107, 107)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtPersonalCine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(262, Short.MAX_VALUE))
+                    .addComponent(jbtPersonalCine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jbtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClienteActionPerformed
+        Menu_Usuarios MU = new Menu_Usuarios();
+        MU.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtClienteActionPerformed
 
     private void jbtPersonalCineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPersonalCineActionPerformed
         Menu_Personal MP = new Menu_Personal();
@@ -164,10 +171,10 @@ public class Menu_Cine extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jbtCliente;
     private javax.swing.JButton jbtPersonalCine;
     // End of variables declaration//GEN-END:variables
 }
